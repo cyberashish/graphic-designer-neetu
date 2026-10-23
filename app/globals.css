@@ -209,6 +209,13 @@
   }
 }
 
+/* The desktop layout reads best slightly scaled down (as at 90% browser zoom). */
+@media (min-width: 1024px) {
+  html {
+    zoom: 0.9;
+  }
+}
+
 /* Rich dark panels: soft orange glows over ink. */
 @utility bg-ink-glow {
   background-color: var(--ink);

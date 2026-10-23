@@ -26,8 +26,10 @@ export function ViewCursor({ container }: { container: React.RefObject<HTMLEleme
     const onMove = (event: PointerEvent) => {
       // Snap into place while hidden so the bubble never flies in from afar.
       const method = scale.get() < 0.05 ? "jump" : "set"
-      x[method](event.clientX)
-      y[method](event.clientY)
+      // Pointer coordinates ignore the root `zoom`, but the bubble's offsets are scaled by it.
+      const zoom = parseFloat(getComputedStyle(document.documentElement).zoom) || 1
+      x[method](event.clientX / zoom)
+      y[method](event.clientY / zoom)
       const overTarget = (event.target as Element).closest('[data-cursor="view"]')
       scale.set(overTarget ? 1 : 0)
     }
