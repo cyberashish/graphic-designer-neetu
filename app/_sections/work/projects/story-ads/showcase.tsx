@@ -12,8 +12,8 @@ const captions = [
   "Skip the balms and painkillers · English",
   "A setback on the court · English",
   "From knee pain to free movement · English",
-  "Worn joint vs restored joint · Marathi",
-  "Restore the knee gap · Marathi",
+  "Skip injections and painkillers · English",
+  "47% face permanent knee damage · English",
   "Today's pain, tomorrow's mobility · Hindi",
 ]
 

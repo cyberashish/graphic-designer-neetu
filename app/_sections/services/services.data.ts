@@ -1,10 +1,10 @@
 import type { StaticImageData } from "next/image"
 
 import type { ProjectCategory } from "../work/work.data"
-import advertising from "./images/advertising.jpg"
-import brandIdentity from "./images/brand-identity.jpg"
-import editorial from "./images/editorial.jpg"
-import packaging from "./images/packaging.jpg"
+import advertising from "./images/advertising.webp"
+import brandIdentity from "./images/brand-identity.webp"
+import editorial from "./images/editorial.webp"
+import packaging from "./images/packaging.webp"
 
 export type Service = {
   title: string

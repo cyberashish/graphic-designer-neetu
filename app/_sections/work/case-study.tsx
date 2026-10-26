@@ -182,11 +182,14 @@ export function CaseStudy({ project, position, next, onClose, onStep }: CaseStud
               </Container>
 
               {next && (
-                <button
-                  type="button"
-                  onClick={() => onStep(1)}
-                  className={cn("group relative block w-full cursor-pointer overflow-hidden text-left", next.tone)}
-                >
+                <div className={cn("group relative overflow-hidden", next.tone)}>
+                  {/* One overlay button covers the strip, so the cover's own controls never nest inside it. */}
+                  <button
+                    type="button"
+                    onClick={() => onStep(1)}
+                    aria-label={`Next project: ${next.title}`}
+                    className="absolute inset-0 z-10 cursor-pointer"
+                  />
                   <Container className="grid items-center gap-6 py-12 sm:grid-cols-[1fr_auto_minmax(0,0.9fr)] sm:py-16">
                     <span>
                       <span className="text-base opacity-60">Next project</span>
@@ -195,11 +198,11 @@ export function CaseStudy({ project, position, next, onClose, onStep }: CaseStud
                     <span className="grid size-16 shrink-0 place-items-center rounded-full bg-primary text-white transition-transform duration-500 ease-out-expo group-hover:translate-x-2">
                       <ArrowRight className="size-7" />
                     </span>
-                    <span aria-hidden className="relative hidden h-[260px] [container-type:size] sm:block">
+                    <span inert className="relative hidden h-[260px] [container-type:size] sm:block">
                       <next.Cover />
                     </span>
                   </Container>
-                </button>
+                </div>
               )}
             </m.div>
           </AnimatePresence>

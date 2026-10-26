@@ -6,13 +6,7 @@ import mythsMyth4 from "./images/myth-4.webp"
 import mythsMyth5 from "./images/myth-5.webp"
 import mythsMyth6 from "./images/myth-6.webp"
 import mythsMyth7 from "./images/myth-7.webp"
-import trustTrust1 from "./images/trust-1.webp"
-import trustTrust2 from "./images/trust-2.webp"
-import trustTrust3 from "./images/trust-3.webp"
-import trustTrust4 from "./images/trust-4.webp"
-import trustTrust5 from "./images/trust-5.webp"
 
 export const assets = {
   myths: [mythsMyth1, mythsMyth2, mythsMyth3, mythsMyth4, mythsMyth5, mythsMyth6, mythsMyth7],
-  trust: [trustTrust1, trustTrust2, trustTrust3, trustTrust4, trustTrust5],
 }

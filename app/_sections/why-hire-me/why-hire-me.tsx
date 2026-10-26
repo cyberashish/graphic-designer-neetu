@@ -26,7 +26,7 @@ export function WhyHireMe() {
             <div className="group relative aspect-[4/5] overflow-hidden rounded-[3rem] shadow-2xl shadow-ink/10">
               <Image
                 src={studio}
-                alt={`${site.name} working on a colour study with a drawing tablet`}
+                alt={`${site.name}'s design canvas with a story ad, an Instagram post and a feed ad in progress`}
                 placeholder="blur"
                 quality={90}
                 sizes="(min-width: 1024px) 512px, 92vw"

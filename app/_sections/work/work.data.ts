@@ -6,7 +6,9 @@ import { AmazonCover } from "./projects/amazon-listings/cover"
 import { BookletCover } from "./projects/booklet/cover"
 import { InstagramEducationCover } from "./projects/instagram-education/cover"
 import { InstagramMythsCover } from "./projects/instagram-myths/cover"
-import { NativeRcsCover } from "./projects/native-rcs/cover"
+import { InstagramPostsCover } from "./projects/instagram-posts/cover"
+import { InstagramWhyChooseCover } from "./projects/instagram-why-choose/cover"
+import { TaboolaRcsCover } from "./projects/taboola-rcs/cover"
 import { PamphletsCover } from "./projects/pamphlets/cover"
 import { PmaxKneeCover } from "./projects/pmax-knee/cover"
 import { PmaxSpineCover } from "./projects/pmax-spine/cover"
@@ -14,7 +16,7 @@ import { StandeesCover } from "./projects/standees/cover"
 import { StoryAdsCover } from "./projects/story-ads/cover"
 import { VoucherCover } from "./projects/voucher/cover"
 
-export const categories = ["All", "Booklet", "Branding", "Events", "Social", "Ads"] as const
+export const categories = ["All", "Booklet", "Branding", "Events", "Social media", "Ads"] as const
 export type Category = (typeof categories)[number]
 export type ProjectCategory = Exclude<Category, "All">
 
@@ -38,7 +40,7 @@ export type Project = {
 // Showcases are code-split: their JS and images load only when a case study opens.
 const lazy = (load: () => Promise<{ default: ComponentType }>) => dynamic(load, { loading: ShowcaseSkeleton })
 
-/** Order is tuned so the "All" view packs into gapless rows of 6 columns. */
+/** Grouped by category (in tab order), with spans tuned so each group fills whole rows of 6 columns. */
 export const projects: Project[] = [
   {
     slug: "booklet",
@@ -55,28 +57,9 @@ export const projects: Project[] = [
       { label: "Spreads", value: "13" },
     ],
     tone: "bg-[#e4eee9]",
-    span: "wide",
+    span: "half",
     Cover: BookletCover,
     Showcase: lazy(() => import("./projects/booklet/showcase")),
-  },
-  {
-    slug: "story-ads",
-    title: "Knee Care Story Ads",
-    client: "ResearchAyu",
-    category: "Ads",
-    year: 2026,
-    summary:
-      "Full-screen Meta stories for a non-surgical knee treatment. Each one opens on a single human moment (a run, a dance, a staircase) and keeps the message to a thumb-stopping line plus a call button, localised for five regional audiences.",
-    deliverables: ["Meta story ads", "Localisation", "Key visuals"],
-    facts: [
-      { label: "Format", value: "9:16" },
-      { label: "Languages", value: "5" },
-      { label: "Placement", value: "Meta" },
-    ],
-    tone: "bg-[#151515] text-white",
-    span: "third",
-    Cover: StoryAdsCover,
-    Showcase: lazy(() => import("./projects/story-ads/showcase")),
   },
   {
     slug: "amazon-listings",
@@ -96,44 +79,6 @@ export const projects: Project[] = [
     span: "half",
     Cover: AmazonCover,
     Showcase: lazy(() => import("./projects/amazon-listings/showcase")),
-  },
-  {
-    slug: "instagram-education",
-    title: "Root-Cause Carousel",
-    client: "ResearchAyu",
-    category: "Social",
-    year: 2026,
-    summary:
-      "An eight-slide explainer that tells the story of knee degeneration like a short documentary, from gut health to metabolic waste to joint space, ending on the treatment approach. Paired with single-image posts that carry the clinical proof points.",
-    deliverables: ["Instagram carousels", "Static posts", "3D medical visuals"],
-    facts: [
-      { label: "Format", value: "4:5" },
-      { label: "Slides", value: "8" },
-      { label: "Posts", value: "4" },
-    ],
-    tone: "bg-[#e1ede6]",
-    span: "half",
-    Cover: InstagramEducationCover,
-    Showcase: lazy(() => import("./projects/instagram-education/showcase")),
-  },
-  {
-    slug: "pmax-spine",
-    title: "Spine Care Campaign",
-    client: "ResearchAyu",
-    category: "Ads",
-    year: 2026,
-    summary:
-      "Conceptual Performance Max creatives that make back pain visible: a man pulled by puppet strings, a backpack stuffed with \"long sitting hours\", a boulder labelled BACK PAIN. Every visual metaphor lands before the copy is read.",
-    deliverables: ["Performance Max", "Visual concepts", "Multi-format adaptations"],
-    facts: [
-      { label: "Formats", value: "1:1 · 4:5 · 1.91:1" },
-      { label: "Languages", value: "3" },
-      { label: "Concepts", value: "20+" },
-    ],
-    tone: "bg-[#0e3f37] text-white",
-    span: "third",
-    Cover: PmaxSpineCover,
-    Showcase: lazy(() => import("./projects/pmax-spine/showcase")),
   },
   {
     slug: "voucher",
@@ -161,36 +106,17 @@ export const projects: Project[] = [
     category: "Events",
     year: 2026,
     summary:
-      "Roll-ups and backdrops for clinics and health camps, built on one layout that scales from a 3×6 ft roll-up to a 10×8 ft stage backdrop without losing the headline, the 3-step recovery path or the call to action.",
+      "Roll-ups and backdrops for clinics and health camps, built on one layout that scales from a 3×6 ft roll-up to a 10×8 ft stage backdrop without losing the headline, the 3-step recovery path or the call to action, plus a set of roll-ups written for each stop on the event floor: entrance, booth and main stage.",
     deliverables: ["Roll-up banners", "Stage backdrops", "Large-format print"],
     facts: [
       { label: "Sizes", value: "3×6 ft → 10×8 ft" },
       { label: "Languages", value: "2" },
-      { label: "Variants", value: "7" },
+      { label: "Variants", value: "13" },
     ],
     tone: "bg-[linear-gradient(to_bottom,#ecebe7_72%,#e0ddd6_72%)]",
     span: "third",
     Cover: StandeesCover,
     Showcase: lazy(() => import("./projects/standees/showcase")),
-  },
-  {
-    slug: "native-rcs",
-    title: "Native & RCS Ads",
-    client: "ResearchAyu",
-    category: "Ads",
-    year: 2026,
-    summary:
-      "Native ads that sit naturally inside news feeds, plus rich RCS message cards that land straight in patients' inboxes with call and booking buttons. Wide compositions keep the person on one side and the promise on the other.",
-    deliverables: ["Taboola native ads", "RCS rich cards", "Copy layouts"],
-    facts: [
-      { label: "Native", value: "2.2:1" },
-      { label: "RCS", value: "2:1" },
-      { label: "Channels", value: "2" },
-    ],
-    tone: "bg-[#eaeef1]",
-    span: "wide",
-    Cover: NativeRcsCover,
-    Showcase: lazy(() => import("./projects/native-rcs/showcase")),
   },
   {
     slug: "pamphlets",
@@ -212,6 +138,139 @@ export const projects: Project[] = [
     Showcase: lazy(() => import("./projects/pamphlets/showcase")),
   },
   {
+    slug: "instagram-education",
+    title: "Root-Cause Carousel",
+    client: "ResearchAyu",
+    category: "Social media",
+    year: 2026,
+    summary:
+      "An eight-slide explainer that tells the story of knee degeneration like a short documentary, from gut health to metabolic waste to joint space, ending on the treatment approach.",
+    deliverables: ["Instagram carousel", "3D medical visuals", "Slide storytelling"],
+    facts: [
+      { label: "Format", value: "4:5" },
+      { label: "Slides", value: "8" },
+      { label: "Platform", value: "Instagram" },
+    ],
+    tone: "bg-[#e1ede6]",
+    span: "half",
+    Cover: InstagramEducationCover,
+    Showcase: lazy(() => import("./projects/instagram-education/showcase")),
+  },
+  {
+    slug: "instagram-myths",
+    title: "Myth vs Reality Series",
+    client: "ResearchAyu",
+    category: "Social media",
+    year: 2026,
+    summary:
+      "A split-layout carousel format that pits a common knee myth against the clinical truth. The diagonal teal panel became a recognisable device across the feed.",
+    deliverables: ["Carousel templates", "Myth/Truth system"],
+    facts: [
+      { label: "Format", value: "4:5" },
+      { label: "Slides", value: "7" },
+      { label: "Platform", value: "Instagram" },
+    ],
+    tone: "bg-[#e4eee9]",
+    span: "half",
+    Cover: InstagramMythsCover,
+    Showcase: lazy(() => import("./projects/instagram-myths/showcase")),
+  },
+  {
+    slug: "instagram-why-choose",
+    title: "Why Choose ResearchAyu",
+    client: "ResearchAyu",
+    category: "Social media",
+    year: 2026,
+    summary:
+      "A trust-building carousel that answers the question every patient asks before booking: why this clinic? Research, doctors and results are laid out one proof point per slide, closing on a clear call to action.",
+    deliverables: ["Instagram carousel", "Trust messaging", "Photo direction"],
+    facts: [
+      { label: "Format", value: "4:5" },
+      { label: "Slides", value: "5" },
+      { label: "Platform", value: "Instagram" },
+    ],
+    tone: "bg-[#e8eeec]",
+    span: "half",
+    Cover: InstagramWhyChooseCover,
+    Showcase: lazy(() => import("./projects/instagram-why-choose/showcase")),
+  },
+  {
+    slug: "instagram-posts",
+    title: "Single Image Posts",
+    client: "ResearchAyu",
+    category: "Social media",
+    year: 2026,
+    summary:
+      "Standalone feed posts that each carry one idea, from how knee cushions regrow to choosing the best care for your parents. Bold headlines, 3D anatomy and clinical proof points keep every post readable at a glance.",
+    deliverables: ["Static posts", "3D medical visuals", "Headline copy"],
+    facts: [
+      { label: "Format", value: "4:5" },
+      { label: "Posts", value: "4" },
+      { label: "Platform", value: "Instagram" },
+    ],
+    tone: "bg-[#e1ede6]",
+    span: "half",
+    Cover: InstagramPostsCover,
+    Showcase: lazy(() => import("./projects/instagram-posts/showcase")),
+  },
+  {
+    slug: "story-ads",
+    title: "Knee Care Story Ads",
+    client: "ResearchAyu",
+    category: "Ads",
+    year: 2026,
+    summary:
+      "Full-screen Meta stories for a non-surgical knee treatment. Each one opens on a single human moment (a run, a dance, a staircase) and keeps the message to a thumb-stopping line plus a call button, localised for five regional audiences.",
+    deliverables: ["Meta story ads", "Localisation", "Key visuals"],
+    facts: [
+      { label: "Format", value: "9:16" },
+      { label: "Languages", value: "5" },
+      { label: "Placement", value: "Meta" },
+    ],
+    tone: "bg-[#151515] text-white",
+    span: "third",
+    Cover: StoryAdsCover,
+    Showcase: lazy(() => import("./projects/story-ads/showcase")),
+  },
+  {
+    slug: "taboola-rcs",
+    title: "Taboola & RCS Ads",
+    client: "ResearchAyu",
+    category: "Ads",
+    year: 2026,
+    summary:
+      "Taboola ads that sit naturally inside news feeds, plus rich RCS message cards that land straight in patients' inboxes with call and booking buttons. Wide compositions keep the person on one side and the promise on the other.",
+    deliverables: ["Taboola ads", "RCS rich cards", "Copy layouts"],
+    facts: [
+      { label: "Taboola", value: "2.2:1" },
+      { label: "RCS", value: "2:1" },
+      { label: "Channels", value: "2" },
+    ],
+    tone: "bg-[#eaeef1]",
+    span: "wide",
+    Cover: TaboolaRcsCover,
+    Showcase: lazy(() => import("./projects/taboola-rcs/showcase")),
+  },
+  {
+    slug: "pmax-spine",
+    title: "Spine Care Campaign",
+    client: "ResearchAyu",
+    category: "Ads",
+    year: 2026,
+    summary:
+      "Conceptual Performance Max creatives that make back pain visible: a man pulled by puppet strings, a backpack stuffed with \"long sitting hours\", a boulder labelled BACK PAIN. Every visual metaphor lands before the copy is read.",
+    deliverables: ["Performance Max", "Visual concepts", "Multi-format adaptations"],
+    facts: [
+      { label: "Formats", value: "1:1 · 4:5 · 1.91:1" },
+      { label: "Languages", value: "3" },
+      { label: "Concepts", value: "20+" },
+    ],
+    tone: "bg-[#0e3f37] text-white",
+    span: "half",
+    Cover: PmaxSpineCover,
+    Showcase: lazy(() => import("./projects/pmax-spine/showcase")),
+  },
+  {
     slug: "pmax-knee",
     title: "Knee Care Campaign",
     client: "ResearchAyu",
@@ -229,24 +288,5 @@ export const projects: Project[] = [
     span: "half",
     Cover: PmaxKneeCover,
     Showcase: lazy(() => import("./projects/pmax-knee/showcase")),
-  },
-  {
-    slug: "instagram-myths",
-    title: "Myth vs Reality Series",
-    client: "ResearchAyu",
-    category: "Social",
-    year: 2026,
-    summary:
-      "A split-layout carousel format that pits a common knee myth against the clinical truth, followed by a trust-building series on research and results. The diagonal teal panel became a recognisable device across the feed.",
-    deliverables: ["Carousel templates", "Myth/Truth system", "Trust series"],
-    facts: [
-      { label: "Carousels", value: "2" },
-      { label: "Slides", value: "12" },
-      { label: "Format", value: "4:5" },
-    ],
-    tone: "bg-[#e4eee9]",
-    span: "half",
-    Cover: InstagramMythsCover,
-    Showcase: lazy(() => import("./projects/instagram-myths/showcase")),
   },
 ]

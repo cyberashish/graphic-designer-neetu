@@ -15,7 +15,7 @@ export const site = {
   email: "hello@neetu.studio",
   phone: "+91 98765 43210",
   location: "Mumbai, India",
-  yearsOfExperience: 10,
+  yearsOfExperience: 1,
   copyrightYear: 2026,
   socials: [
     { label: "Dribbble", href: "https://dribbble.com" },

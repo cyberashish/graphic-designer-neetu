@@ -1,68 +1,65 @@
 "use client"
 
 import { ArrowLeft, ArrowRight } from "lucide-react"
-import { AnimatePresence } from "motion/react"
-import * as m from "motion/react-m"
 import Image from "next/image"
-import { useState } from "react"
+import { useRef, useState } from "react"
 
-import { BookCover, BookSpread } from "@/components/mockups/book"
-import { easeOutExpo } from "@/lib/motion"
+import { BookCover } from "@/components/mockups/book"
+import { FlipBook, type FlipBookHandle, type FlipBookPage } from "@/components/mockups/flip-book"
 import { cn } from "@/lib/utils"
 
 import { ShowcaseSection, Stage } from "../../showcase-parts"
 import { assets } from "./assets"
 
-const pages = [
-  { kind: "cover" as const, image: assets.cover[0], label: "Front cover" },
-  ...assets.spreads.map((image, i) => ({ kind: "spread" as const, image, label: `Spread ${i + 1}` })),
-  { kind: "cover" as const, image: assets.back[0], label: "Back cover" },
+/** What the controls step through: the covers and each two-page spread. */
+const views = [
+  { image: assets.cover[0], label: "Front cover" },
+  ...assets.spreads.map((image, i) => ({ image, label: `Spread ${i + 1}` })),
+  { image: assets.back[0], label: "Back cover" },
 ]
 
+/** The physical pages: covers on board, each spread image cut down the spine. */
+const bookPages: FlipBookPage[] = [
+  { image: assets.cover[0], alt: "Front cover", hard: true },
+  ...assets.spreads.flatMap((image, i): FlipBookPage[] => [
+    { image, half: "left", alt: `Spread ${i + 1}, left page` },
+    { image, half: "right", alt: `Spread ${i + 1}, right page` },
+  ]),
+  { image: assets.back[0], alt: "Back cover", hard: true },
+]
+
+// The cover opens onto spread 1 (pages 1–2), spread 2 is pages 3–4, and so on.
+const pageOfView = (view: number) => (view === 0 ? 0 : view * 2 - 1)
+const viewOfPage = (page: number) => Math.ceil(page / 2)
+
 export default function BookletShowcase() {
-  const [index, setIndex] = useState(1)
-  const [direction, setDirection] = useState<1 | -1>(1)
-  const page = pages[index]
+  const bookRef = useRef<FlipBookHandle>(null)
+  const [index, setIndex] = useState(0)
+  const view = views[index]
 
   const go = (next: number) => {
-    if (next < 0 || next >= pages.length) return
-    setDirection(next > index ? 1 : -1)
-    setIndex(next)
+    if (next < 0 || next >= views.length || next === index) return
+    bookRef.current?.flipTo(pageOfView(next))
   }
 
   return (
     <>
-      <ShowcaseSection title="Flip through the booklet" note="Use the arrows or pick a spread below.">
+      <ShowcaseSection title="Flip through the booklet" note="Drag a page corner, click a page, or use the arrows.">
         <Stage className="bg-[#e4eee9]">
-          <div className="relative mx-auto flex aspect-[1.6] max-w-5xl items-center justify-center">
-            <AnimatePresence mode="popLayout" initial={false} custom={direction}>
-              <m.div
-                key={index}
-                custom={direction}
-                variants={{
-                  enter: (d: number) => ({ opacity: 0, x: d * 60, rotateY: d * -8 }),
-                  center: { opacity: 1, x: 0, rotateY: 0 },
-                  exit: (d: number) => ({ opacity: 0, x: d * -60, rotateY: d * 8 }),
-                }}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.55, ease: easeOutExpo }}
-                className={cn("[perspective:2000px]", page.kind === "cover" ? "h-[92%]" : "w-[96%]")}
-              >
-                {page.kind === "cover" ? (
-                  <BookCover cover={page.image} alt={page.label} sizes="(min-width: 1024px) 560px, 70vw" className="h-full" />
-                ) : (
-                  <BookSpread spread={page.image} alt={page.label} tilt={0} sizes="(min-width: 1280px) 1180px, 94vw" />
-                )}
-              </m.div>
-            </AnimatePresence>
-          </div>
+          <FlipBook
+            ref={bookRef}
+            pages={bookPages}
+            onFlip={(page) => setIndex(viewOfPage(page))}
+            label="ResearchAyu patient booklet"
+            // Below ~600px the book shows single pages, so each half-spread image renders at twice the book's width.
+            sizes="(min-width: 1280px) 1024px, (min-width: 600px) 94vw, 188vw"
+            className="mx-auto w-full max-w-5xl"
+          />
 
           <div className="mt-8 flex items-center justify-center gap-4">
             <button
               type="button"
-              onClick={() => go(index - 1)}
+              onClick={() => bookRef.current?.prev()}
               disabled={index === 0}
               aria-label="Previous spread"
               className="grid size-12 cursor-pointer place-items-center rounded-full bg-white shadow-sm transition-[scale,opacity] hover:scale-105 active:scale-95 disabled:cursor-default disabled:opacity-40"
@@ -70,12 +67,12 @@ export default function BookletShowcase() {
               <ArrowLeft className="size-5" />
             </button>
             <p className="min-w-40 text-center text-base font-medium tabular-nums" aria-live="polite">
-              {page.label} <span className="text-muted-foreground">· {index + 1} / {pages.length}</span>
+              {view.label} <span className="text-muted-foreground">· {index + 1} / {views.length}</span>
             </p>
             <button
               type="button"
-              onClick={() => go(index + 1)}
-              disabled={index === pages.length - 1}
+              onClick={() => bookRef.current?.next()}
+              disabled={index === views.length - 1}
               aria-label="Next spread"
               className="grid size-12 cursor-pointer place-items-center rounded-full bg-white shadow-sm transition-[scale,opacity] hover:scale-105 active:scale-95 disabled:cursor-default disabled:opacity-40"
             >
@@ -85,7 +82,7 @@ export default function BookletShowcase() {
         </Stage>
 
         <div className="mt-5 flex gap-3 overflow-x-auto pb-2 [scrollbar-width:thin]">
-          {pages.map((p, i) => (
+          {views.map((p, i) => (
             <button
               key={i}
               type="button"

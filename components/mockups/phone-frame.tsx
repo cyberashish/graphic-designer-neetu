@@ -1,4 +1,8 @@
+import Image from "next/image"
+
 import { cn } from "@/lib/utils"
+
+import logo from "./images/researchayu-logo.webp"
 
 /**
  * A minimal modern smartphone. Sized by its parent's width; bezel, radius and
@@ -46,11 +50,9 @@ export function StatusBar({ tone = "dark" }: { tone?: "dark" | "light" }) {
 /** The client's monogram, used as the account avatar in app screens. */
 export function BrandAvatar({ className }: { className?: string }) {
   return (
-    <span
-      aria-hidden
-      className={cn("grid shrink-0 place-items-center rounded-full bg-[#0e7461] font-bold text-white", className)}
-    >
-      R
+    <span aria-hidden className={cn("relative block shrink-0 overflow-hidden rounded-full bg-white", className)}>
+      {/* Inset so the mark clears the circle's edge */}
+      <Image src={logo} alt="" fill sizes="64px" className="object-contain p-[16%]" />
     </span>
   )
 }
