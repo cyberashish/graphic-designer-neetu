@@ -1,6 +1,6 @@
 // Generated from the original creatives by the asset build script.
 import storiesRunAgain from "./images/run-again.webp"
-import storiesFreedom from "./images/freedom.webp"
+import storiesFreedom from "./images/freedom-punjabi.webp"
 import storiesBoulder from "./images/boulder.webp"
 import storiesWalkStrong from "./images/walk-strong.webp"
 import storiesShadow from "./images/shadow.webp"

@@ -12,16 +12,23 @@ export const site = {
   description:
     "Neetu is a graphic designer crafting brand identities, booklets, packaging and advertising for ambitious teams.",
   url: "https://neetu.studio",
+  // Contact details: shown in the footer and used by every "Hire me" and email link.
   email: "hello@neetu.studio",
-  phone: "+91 98765 43210",
+  phone: "+91 70114 09126",
   location: "Mumbai, India",
   yearsOfExperience: 1,
   copyrightYear: 2026,
+  /** Footer links. Leave `href` empty to hide one until the profile URL is ready. */
   socials: [
-    { label: "Dribbble", href: "https://dribbble.com" },
-    { label: "Instagram", href: "https://www.instagram.com" },
     { label: "LinkedIn", href: "https://www.linkedin.com" },
+    { label: "Dribbble", href: "" },
+    { label: "Behance", href: "" },
   ],
+  /**
+   * Served from `public/`. To update the resume, replace `public/resume.pdf` with a file of
+   * the same name; `fileName` is the name the visitor's download is saved under.
+   */
+  resume: { href: "/resume.pdf", fileName: "Neetu-Resume.pdf" },
 } as const
 
 export type NavItem = { label: string; href: `#${string}` }

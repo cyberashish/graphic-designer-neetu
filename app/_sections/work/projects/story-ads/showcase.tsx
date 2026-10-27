@@ -4,7 +4,7 @@ import { FeedStage } from "./feed-stage"
 
 const captions = [
   "Ready to run again · English",
-  "Freedom, expressed through dance · English",
+  "Freedom, expressed through dance · Punjabi",
   "The weight of knee pain · Kannada",
   "Strong knees, steady steps · Marathi",
   "The tired shadow · Marathi",

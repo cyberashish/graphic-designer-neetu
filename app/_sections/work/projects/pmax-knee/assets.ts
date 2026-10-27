@@ -7,7 +7,8 @@ import conceptsRReception from "./images/r-reception.webp"
 import conceptsHelpingHand from "./images/helping-hand.webp"
 import conceptsTwoDoors from "./images/two-doors.webp"
 import conceptsSteps from "./images/steps.webp"
+import conceptsSurgerySwitch from "./images/surgery-switch.webp"
 
 export const assets = {
-  concepts: [conceptsSpotlight, conceptsPainType, conceptsGreenDoor, conceptsShadow, conceptsRReception, conceptsHelpingHand, conceptsTwoDoors, conceptsSteps],
+  concepts: [conceptsSpotlight, conceptsPainType, conceptsGreenDoor, conceptsShadow, conceptsRReception, conceptsHelpingHand, conceptsTwoDoors, conceptsSteps, conceptsSurgerySwitch],
 }

@@ -7,8 +7,8 @@ import { assets } from "./assets"
 
 const labels = [
   "Clinic pamphlet · English",
-  "Knee gap awareness pamphlet · English",
-  "Knee cushion degeneration pamphlet · English",
+  "Knee gap awareness pamphlet · Marathi",
+  "Knee cushion degeneration pamphlet · Telugu",
   "Clinic pamphlet · Hindi",
 ]
 

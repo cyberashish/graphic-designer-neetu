@@ -1,5 +1,4 @@
-import { InstagramPost } from "@/components/mockups/instagram-post"
-import { PhoneFrame } from "@/components/mockups/phone-frame"
+import { TiltedWall } from "@/components/mockups/tilted-wall"
 
 import { ArtGrid, ShowcaseSection, Stage } from "../../showcase-parts"
 import { assets } from "./assets"
@@ -13,32 +12,20 @@ const captions = [
   "A helping hand up the stairs",
   "Two doors: surgery, or the alternative",
   "Floating steps back to easy walking",
+  "The switch: surgery off, ResearchAyu on",
 ]
 
 export default function PmaxKneeShowcase() {
   return (
     <>
-      <ShowcaseSection title="In the feed" note="Tap or swipe inside the phone.">
-        <Stage className="grid items-center gap-10 bg-[#efe9e1] lg:grid-cols-[minmax(0,320px)_1fr] lg:gap-16 lg:px-20">
-          <div className="mx-auto w-[min(300px,80%)]">
-            <PhoneFrame>
-              <InstagramPost slides={assets.concepts} caption="Knee pain and surgery recommended? There's another door." aspect="square" sizes="300px" />
-            </PhoneFrame>
-          </div>
-          <div>
-            <p className="max-w-md text-2xl leading-snug font-semibold tracking-tight text-balance">
-              Doors, stairs and shadows: simple metaphors for choosing a path without surgery.
-            </p>
-            <p className="mt-4 max-w-md text-lg leading-relaxed text-muted-foreground">
-              Each concept was built as a 1:1 master, then adapted to 4:5 and 1.91:1 and translated for Delhi, Hyderabad and
-              Maharashtra.
-            </p>
-          </div>
+      <ShowcaseSection title="Visual metaphors" note="Doors, stairs and shadows, one idea per frame.">
+        <Stage className="h-[420px] bg-[#efe9e1] sm:h-[520px]">
+          <TiltedWall images={assets.concepts} columns={4} sizes="(min-width: 1024px) 240px, 30vw" />
         </Stage>
       </ShowcaseSection>
 
-      <ShowcaseSection title="The series" note="English, Hindi, Marathi & Telugu">
-        <ArtGrid images={assets.concepts} alt="Knee care ad" captions={captions} className="grid-cols-2 sm:grid-cols-4" />
+      <ShowcaseSection title="The concepts" note="1:1 masters in English, Hindi & Marathi">
+        <ArtGrid images={assets.concepts} alt="Knee care ad" captions={captions} layout="feature" className="grid-cols-2 sm:grid-cols-3" sizes="(min-width: 1024px) 380px, 50vw" />
       </ShowcaseSection>
     </>
   )

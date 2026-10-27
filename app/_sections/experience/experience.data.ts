@@ -18,7 +18,7 @@ export const roles: Role[] = [
   {
     company: "ResearchAyu",
     location: "India",
-    period: "Mar 2026 – Present",
+    period: "Feb 2026 – Present",
     title: "Junior Graphic Designer",
     description:
       "Designing the in-house brand's patient booklet, event standees, pamphlets and vouchers, plus Meta, YouTube, Performance Max and Instagram campaigns localised into five languages.",

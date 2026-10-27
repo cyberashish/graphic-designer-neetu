@@ -6,6 +6,7 @@ import { Reveal } from "@/components/motion/reveal"
 import { Container } from "@/components/shared/container"
 import { EmailCaptureForm } from "@/components/shared/email-capture/email-capture-form"
 import { Logo } from "@/components/shared/logo"
+import { ResumeButton } from "@/components/shared/resume-button"
 import { buttonVariants } from "@/components/ui/button"
 import { allNavItems, site } from "@/config/site"
 
@@ -20,12 +21,17 @@ export function Footer() {
             <h2 className="text-4xl font-semibold tracking-tight sm:text-6xl">
               Let&rsquo;s Connect <span className="text-primary">there</span>
             </h2>
-            <Magnetic>
-              <a href={`mailto:${site.email}`} className={buttonVariants({ size: "pill-lg", className: "group px-8" })}>
-                Hire me
-                <ArrowUpRight className="transition-transform duration-500 ease-out-expo group-hover:rotate-45" />
-              </a>
-            </Magnetic>
+            <div className="flex flex-wrap items-center gap-3">
+              <Magnetic>
+                <a href={`mailto:${site.email}`} className={buttonVariants({ size: "pill-lg", className: "group px-8" })}>
+                  Hire me
+                  <ArrowUpRight className="transition-transform duration-500 ease-out-expo group-hover:rotate-45" />
+                </a>
+              </Magnetic>
+              <Magnetic>
+                <ResumeButton tone="dark" />
+              </Magnetic>
+            </div>
           </Reveal>
 
           <div className="grid gap-12 pt-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_0.7fr_1fr_1.4fr]">
@@ -33,7 +39,7 @@ export function Footer() {
               <Logo className="text-white" />
               <p className="mt-5 max-w-xs leading-relaxed text-white/60">{site.tagline}</p>
               <ul className="mt-6 flex flex-wrap gap-2">
-                {site.socials.map((social) => (
+                {site.socials.filter((social) => social.href).map((social) => (
                   <li key={social.label}>
                     <a
                       href={social.href}

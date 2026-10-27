@@ -7,14 +7,21 @@ import { assets } from "./assets"
 const floor = "bg-[linear-gradient(to_bottom,#ecebe7_78%,#dedad2_78%)]"
 
 // Roll-ups for each stop on the event floor, in the order a visitor meets them.
+// Each pair stands side by side with English on the left; the right side varies per stop
+// (Marathi, Telugu, English) so no language repeats as the regional pick.
 const placements = [
   {
     name: "Entrance",
     job: "Stops passers-by with a stat they recognise, then points them inside.",
     wall: "bg-[#ece6dc]",
     designs: [
-      { image: assets.entrance[0], alt: "Entrance standee: 1 out of 3 Indians over 40 have knee pain", headline: "1 out of 3 Indians over 40" },
-      { image: assets.entrance[1], alt: "Entrance standee: 1 out of 2 Indians over 50 have knee pain", headline: "1 out of 2 Indians over 50" },
+      { image: assets.entrance[0], alt: "Entrance standee: 1 out of 3 Indians over 40 have knee pain", headline: "1 out of 3 Indians over 40", language: "English" },
+      {
+        image: assets.entrance[1],
+        alt: "Entrance standee in Marathi: 1 in 3 patients eventually face surgery",
+        headline: "1 in 3 patients end up facing surgery",
+        language: "Marathi",
+      },
     ],
   },
   {
@@ -22,8 +29,8 @@ const placements = [
     job: "Builds trust where people stop to talk: numbers, partners and a free knee check.",
     wall: "bg-[#e2ebe7]",
     designs: [
-      { image: assets.booth[0], alt: "Booth standee: Regrow your knee cushion while you still can", headline: "Regrow your knee cushion" },
-      { image: assets.booth[1], alt: "Booth standee: Knee surgery? Check this first", headline: "Knee surgery? Check this first" },
+      { image: assets.booth[0], alt: "Booth standee: Regrow your knee cushion while you still can", headline: "Regrow your knee cushion", language: "English" },
+      { image: assets.booth[1], alt: "Booth standee in Telugu: Knee surgery? Check this first", headline: "Knee surgery? Check this first", language: "Telugu" },
     ],
   },
   {
@@ -31,8 +38,8 @@ const placements = [
     job: "Carries the core knee-cushion promise in type that reads from the back row.",
     wall: "bg-[#e8e9ea]",
     designs: [
-      { image: assets.stage[0], alt: "Main stage standee: Chronic knee pain? How we help", headline: "Chronic knee pain? How we help" },
-      { image: assets.stage[1], alt: "Main stage standee: Advised knee replacement? Pause", headline: "Advised knee replacement? Pause." },
+      { image: assets.stage[0], alt: "Main stage standee: Chronic knee pain? How we help", headline: "Chronic knee pain? How we help", language: "English" },
+      { image: assets.stage[1], alt: "Main stage standee: Advised knee replacement? Pause", headline: "Advised knee replacement? Pause.", language: "English" },
     ],
   },
 ]
@@ -47,7 +54,7 @@ export default function StandeesShowcase() {
     { image: marathi, alt: "Roll-up standee, Marathi", caption: "Roll-up standee · 3 × 6 ft · Marathi" },
     { image: large, alt: "10 × 8 ft stage backdrop", caption: "Stage backdrop · 10 × 8 ft" },
     ...placements.flatMap(({ name, designs }) =>
-      designs.map(({ image, alt }, i) => ({ image, alt, caption: `${name} standee ${i + 1} · 3 × 6 ft` }))
+      designs.map(({ image, alt, language }, i) => ({ image, alt, caption: `${name} standee ${i + 1} · 3 × 6 ft · ${language}` }))
     ),
   ]
   const firstPlacementItem = 3
@@ -77,12 +84,15 @@ export default function StandeesShowcase() {
             <span aria-hidden className="absolute inset-0 bg-[radial-gradient(ellipse_60%_55%_at_50%_0%,rgb(255_255_255/0.65),transparent)]" />
             <span aria-hidden className="absolute inset-x-0 bottom-0 h-[30%] bg-gradient-to-b from-black/[0.07] to-black/[0.03] shadow-[inset_0_1px_0_rgb(0_0_0/0.06)]" />
             <div className="relative flex items-end justify-center gap-[10%] sm:gap-[12%]">
-              {designs.map(({ image, alt, headline }, i) => (
+              {designs.map(({ image, alt, headline, language }, i) => (
                 <figure key={alt} className="flex w-[40%] max-w-72 flex-col items-center sm:w-[30%]">
                   <ZoomTarget index={firstPlacementItem + p * 2 + i} label={alt} className="w-full">
                     <RollUpBanner src={image} alt={alt} sizes="(min-width: 1024px) 290px, 40vw" />
                   </ZoomTarget>
-                  <figcaption className="mt-3 text-center text-sm font-medium text-balance sm:text-base">{headline}</figcaption>
+                  <figcaption className="mt-3 text-center text-sm font-medium text-balance sm:text-base">
+                    {headline}
+                    <span className="mt-1 block text-xs font-normal tracking-wide text-muted-foreground uppercase sm:text-sm">{language}</span>
+                  </figcaption>
                 </figure>
               ))}
             </div>

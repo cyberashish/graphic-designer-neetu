@@ -110,7 +110,7 @@ export const projects: Project[] = [
     deliverables: ["Roll-up banners", "Stage backdrops", "Large-format print"],
     facts: [
       { label: "Sizes", value: "3×6 ft → 10×8 ft" },
-      { label: "Languages", value: "2" },
+      { label: "Languages", value: "3" },
       { label: "Variants", value: "13" },
     ],
     tone: "bg-[linear-gradient(to_bottom,#ecebe7_72%,#e0ddd6_72%)]",
@@ -277,11 +277,11 @@ export const projects: Project[] = [
     category: "Ads",
     year: 2026,
     summary:
-      "A Performance Max family built around doors, stairs and shadows, simple metaphors for choosing a path without surgery. Designed once and adapted across English, Hindi, Marathi and Telugu for three regions.",
+      "A Performance Max family built around doors, stairs and shadows, simple metaphors for choosing a path without surgery. Designed once and adapted across English, Hindi and Marathi for three regions.",
     deliverables: ["Performance Max", "Concept series", "Regional adaptations"],
     facts: [
       { label: "Formats", value: "3 sizes" },
-      { label: "Languages", value: "4" },
+      { label: "Languages", value: "3" },
       { label: "Regions", value: "3" },
     ],
     tone: "bg-[#efe9e1]",

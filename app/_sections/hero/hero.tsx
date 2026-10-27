@@ -10,6 +10,8 @@ import { site } from "@/config/site"
 import { cn } from "@/lib/utils"
 
 import { LayoutGrid, NameCursor, Selection, SwatchFan } from "./hero-art"
+import { CommentPin, Glows, PenCurve, RotateGuide, Sparkle } from "./hero-decor"
+import { Drift, PointerField } from "./hero-parallax"
 
 /** Staggers the CSS `animate-rise` entrance without any client JS. */
 const rise = (delayMs: number) => ({ style: { animationDelay: `${delayMs}ms` } })
@@ -37,7 +39,9 @@ function Experience({ className }: { className?: string }) {
   return (
     <div {...rise(800)} className={cn("animate-rise text-right", className)}>
       <StarRating className="justify-end gap-1 [&_svg]:size-6" />
-      <p className="mt-3 text-[2.75rem] leading-none font-semibold tracking-tight">{site.yearsOfExperience} {site.yearsOfExperience === 1 ? "Year" : "Years"}</p>
+      <p className="mt-3 text-[2.75rem] leading-none font-semibold tracking-tight">
+        {site.yearsOfExperience} {site.yearsOfExperience === 1 ? "Year" : "Years"}
+      </p>
       <p className="mt-1.5 text-lg text-ink">Experience</p>
     </div>
   )
@@ -64,52 +68,89 @@ function Actions({ className }: { className?: string }) {
   )
 }
 
+/** The name, each letter rising in turn. */
+function StaggeredName() {
+  return (
+    <span className="text-primary">
+      <span className="sr-only">{site.name}</span>
+      <span aria-hidden>
+        {[...site.name].map((letter, i) => (
+          <span key={i} style={{ animationDelay: `${160 + i * 70}ms` }} className="inline-block animate-rise [--rise-from:0.6em]">
+            {letter}
+          </span>
+        ))}
+      </span>
+    </span>
+  )
+}
+
 /**
  * Type-led hero. With no portrait, the designer's own tools carry the
  * imagery: a layout grid, a selection frame on the role, a cursor wearing
- * her name, and a fan of palette swatches.
+ * her name, a fan of palette swatches and a curve mid-edit. The floating
+ * pieces drift with the mouse at different depths.
  */
 export function Hero() {
   return (
-    <section id="home" className="relative overflow-hidden pt-32 pb-20 lg:pt-[150px] lg:pb-24">
-      <Container className="relative">
-        <LayoutGrid className="-top-32 lg:-top-[150px]" />
+    <section id="home" className="relative isolate overflow-hidden pt-32 pb-20 lg:pt-[150px] lg:pb-24">
+      <Glows />
+      <PointerField>
+        <Container className="relative">
+          <LayoutGrid className="-top-32 lg:-top-[150px]" />
 
-        <SwatchFan className="absolute top-[4.5rem] left-[6%] hidden lg:block xl:left-[9%]" />
+          <Drift depth={26} className="absolute top-[4.5rem] left-[6%] hidden lg:block xl:left-[9%]">
+            <RotateGuide className="absolute -inset-9" />
+            <SwatchFan />
+          </Drift>
+          <Drift depth={-18} className="absolute top-[15.75rem] left-0 hidden lg:block xl:left-[3%]">
+            <PenCurve />
+          </Drift>
+          <Drift depth={32} className="absolute top-[5rem] right-[4%] hidden lg:block xl:right-[7%]">
+            <CommentPin />
+          </Drift>
 
-        <div className="relative text-center">
-          <span
-            {...rise(0)}
-            className="relative inline-flex animate-rise items-center rounded-full border border-ink bg-background px-6 py-1.5 text-xl font-medium"
-          >
-            Hello!
-            <SparkDoodle className="absolute -top-7 -right-8 size-9" delay="0.6s" />
-          </span>
+          <Drift depth={14} className="pointer-events-none absolute inset-0">
+            <Sparkle className="top-[1.5rem] left-[30%] hidden sm:block" delayMs={300} />
+            <Sparkle className="top-[11rem] right-[18%] size-4 fill-ink" delayMs={1200} />
+            <Sparkle className="top-[22rem] left-[18%] size-3" delayMs={2000} />
+            <Sparkle className="top-[25rem] right-[30%] hidden size-6 lg:block" delayMs={700} />
+            <Sparkle className="top-[6rem] left-[3%] size-3 fill-ink lg:hidden" delayMs={1600} />
+          </Drift>
 
-          <h1 className="mt-4 text-[clamp(2.75rem,6.7vw,6rem)] leading-[1.1] font-medium tracking-[-0.02em]">
-            <span {...rise(80)} className="block animate-rise">
-              I&rsquo;m <span className="text-primary">{site.name}</span>,
+          <div className="relative text-center">
+            <span
+              {...rise(0)}
+              className="relative inline-flex animate-rise items-center rounded-full border border-ink bg-background px-6 py-1.5 text-xl font-medium"
+            >
+              Hello!
+              <SparkDoodle className="absolute -top-7 -right-8 size-9" delay="0.6s" />
             </span>
-            <span {...rise(180)} className="mt-[0.12em] block animate-rise">
-              <Selection label="Urbanist · Medium">
-                {site.role}
-                {/* Offsets match the selection frame's em inset, so the tip rests on its corner handle. */}
-                <NameCursor className="top-[calc(100%+0.04em)] left-[calc(100%+0.14em)] -mt-1 -ml-1 hidden sm:block" />
-              </Selection>
-            </span>
-          </h1>
 
-          <p {...rise(320)} className="mx-auto mt-10 max-w-xl animate-rise text-lg text-balance text-muted-foreground sm:text-xl">
-            {site.tagline}
-          </p>
-        </div>
+            <h1 className="mt-4 text-[clamp(2.75rem,6.7vw,6rem)] leading-[1.1] font-medium tracking-[-0.02em]">
+              <span {...rise(80)} className="block animate-rise">
+                I&rsquo;m <StaggeredName />,
+              </span>
+              <span {...rise(180)} className="mt-[0.12em] block animate-rise">
+                <Selection label="Urbanist · Medium">
+                  {site.role}
+                  {/* Offsets match the selection frame's em inset, so the tip rests on its corner handle. */}
+                  <NameCursor className="top-[calc(100%+0.04em)] left-[calc(100%+0.14em)] -mt-1 -ml-1 hidden sm:block" />
+                </Selection>
+              </span>
+            </h1>
 
-        <div className="mt-10 grid grid-cols-2 items-end gap-x-6 gap-y-14 lg:mt-14 lg:grid-cols-[1fr_auto_1fr] lg:items-center">
-          <Actions className="col-span-2 justify-self-center lg:col-span-1 lg:col-start-2 lg:row-start-1" />
-          <Testimonial className="lg:col-start-1 lg:row-start-1" />
-          <Experience className="justify-self-end lg:col-start-3 lg:row-start-1" />
-        </div>
-      </Container>
+            <p {...rise(320)} className="mx-auto mt-10 max-w-xl animate-rise text-lg text-balance text-muted-foreground sm:text-xl">
+              {site.tagline}
+            </p>
+          </div>
+
+          <div className="mt-10 grid grid-cols-2 items-end gap-x-6 gap-y-14 lg:mt-14 lg:grid-cols-[1fr_auto_1fr] lg:items-center">
+            <Actions className="col-span-2 justify-self-center lg:col-span-1 lg:col-start-2 lg:row-start-1" />
+            <Testimonial className="lg:col-start-1 lg:row-start-1" />
+            <Experience className="justify-self-end lg:col-start-3 lg:row-start-1" />
+          </div>
+        </Container>
+      </PointerField>
     </section>
   )
 }
