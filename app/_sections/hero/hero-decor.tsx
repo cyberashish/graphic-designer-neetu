@@ -56,7 +56,7 @@ export function CommentPin({ className }: { className?: string }) {
         </span>
         <span className="animate-float rounded-2xl rounded-bl-sm bg-white px-3.5 py-2.5 text-left shadow-[0_14px_30px_-12px_rgb(0_0_0/0.3)] ring-1 ring-black/5 [animation-delay:3s]">
           <span className="block text-xs font-semibold">Client</span>
-          <span className="block text-sm whitespace-nowrap text-muted-foreground">Love this direction! ✨</span>
+          <span className="block text-sm whitespace-nowrap text-muted-foreground">Love this direction! </span>
         </span>
       </div>
       <NameCursor name="Client" arrow="fill-[#0e7461]" tag="bg-[#0e7461] shadow-[#0e7461]/30" delay={2600} className="top-full left-[70%] mt-1" />
