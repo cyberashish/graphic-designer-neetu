@@ -11,16 +11,16 @@ export const site = {
   tagline: "Brand identities, editorial print and campaigns that people remember.",
   description:
     "Neetu is a graphic designer crafting brand identities, booklets, packaging and advertising for ambitious teams.",
-  url: "https://neetu.studio",
+  url: "https://graphic-designer-neetu.vercel.app",
   // Contact details: shown in the footer and used by every "Hire me" and email link.
-  email: "hello@neetu.studio",
+  email: "neetu.kumari.design@gmail.com",
   phone: "+91 70114 09126",
   location: "Mumbai, India",
   yearsOfExperience: 1,
   copyrightYear: 2026,
   /** Footer links. Leave `href` empty to hide one until the profile URL is ready. */
   socials: [
-    { label: "LinkedIn", href: "https://www.linkedin.com" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/neetu-kumari-882a5b362?utm_source=share_via&utm_content=profile&utm_medium=member_android" },
     { label: "Dribbble", href: "" },
     { label: "Behance", href: "" },
   ],
