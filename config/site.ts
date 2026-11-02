@@ -10,7 +10,7 @@ export const site = {
   role: "Graphic Designer",
   tagline: "Brand identities, editorial print and campaigns that people remember.",
   description:
-    "Neetu is a graphic designer crafting brand identities, booklets, packaging and advertising for ambitious teams.",
+    "Neetu Kumari is a graphic designer crafting brand identities, booklets, packaging and advertising for ambitious teams.",
   url: "https://graphic-designer-neetu.vercel.app",
   // Contact details: shown in the footer and used by every "Hire me" and email link.
   email: "neetu.kumari.design@gmail.com",
