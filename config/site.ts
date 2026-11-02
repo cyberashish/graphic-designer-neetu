@@ -3,8 +3,8 @@
  * so rebranding the portfolio is a one-file change.
  */
 export const site = {
-  name: "Neetu",
-  fullName: "Neetu",
+  name: "Neetu kumari",
+  fullName: "Neetu Kumari",
   /** Studio wordmark shown in the header and footer. */
   brand: "Neetu",
   role: "Graphic Designer",
