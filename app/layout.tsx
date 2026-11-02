@@ -16,10 +16,10 @@ const urbanist = Urbanist({
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: `${site.fullName} | ${site.role}`,
+  title: `Neetu Kumari | ${site.role}`,
   description: site.description,
   openGraph: {
-    title: `${site.fullName} | ${site.role}`,
+    title: `Neetu Kumari | ${site.role}`,
     description: site.description,
     type: "website",
   },
